@@ -4,7 +4,7 @@ class Uebung2
 {
     static void Main(string[] args)
     {
-        for (int i = 0; i <= int.MaxValue; i++)
+        for (int i =int.MaxValue-100000; i < int.MaxValue; i++)
         {
             if (i % 2 == 0)
             {
