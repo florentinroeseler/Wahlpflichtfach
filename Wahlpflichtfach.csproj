@@ -10,10 +10,12 @@
   <ItemGroup>
     <Compile Remove="Uebung0.cs" />
     <Compile Remove="Uebung1.cs" />
+    <Compile Remove="Uebung2.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Uebung1.cs" />
+    <None Include="Uebung2.cs" />
   </ItemGroup>
 
 </Project>
