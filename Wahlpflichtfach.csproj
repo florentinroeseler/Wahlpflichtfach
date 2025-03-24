@@ -11,11 +11,18 @@
     <Compile Remove="Uebung0.cs" />
     <Compile Remove="Uebung1.cs" />
     <Compile Remove="Uebung2.cs" />
+    <Compile Remove="Uebung3.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Uebung1.cs" />
     <None Include="Uebung2.cs" />
+    <None Include="Uebung3.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
+    <PackageReference Include="BenchmarkDotNet.Annotations" Version="0.14.0" />
   </ItemGroup>
 
 </Project>
