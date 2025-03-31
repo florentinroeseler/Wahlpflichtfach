@@ -18,13 +18,16 @@
   <ItemGroup>
     <None Include="Uebung1.cs" />
     <None Include="Uebung2.cs" />
-    <None Include="Uebung3.cs" />
     <None Include="Uebung4.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
     <PackageReference Include="BenchmarkDotNet.Annotations" Version="0.14.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Uebung3.cs" />
   </ItemGroup>
 
 </Project>

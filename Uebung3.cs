@@ -35,6 +35,9 @@ class Uebung3
     }
     static double ParseAndCalculate(string input)
     {
+        // Wegen der regionalen Einstellungen wir der Punkt standardmäßig nicht als Dezimaltrennzeichen erkannt
+        // -> Ersetze Punkt durch Komma
+        input = input.Replace('.', ',');
         input = Regex.Replace(input, @"(\d)([+\-*/])(\d)", "$1 $2 $3");
 
         string[] parts = input.Split(' ');
