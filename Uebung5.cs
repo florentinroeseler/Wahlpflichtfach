@@ -4,7 +4,6 @@ using System.Text;
 
 namespace BankUeberweisung
 {
-    // Event Argumente
     public class TransferEventArgs : EventArgs
     {
         public string From { get; }
@@ -22,21 +21,18 @@ namespace BankUeberweisung
     // Delegate für Event
     public delegate void TransferEventHandler(object sender, TransferEventArgs e);
 
-    // Verwaltet Konten und wirft Event bei Überweisung
     public class Bank
     {
         private Dictionary<string, int> _konten = new Dictionary<string, int>();
 
-        // Das Event, das im Erfolgsfall ausgelöst werden soll
+        // Event wird bei Erfolg ausgelöst
         public event TransferEventHandler OnTransfer;
 
         public Bank(int startGuthaben)
         {
-            // Bank-Konto mit Startguthaben anlegen
             _konten["Bank"] = startGuthaben;
         }
 
-        // Methode zum Überweisen an einen bestimmten Empfänger
         public void Ueberweisen(string empfaenger, int betrag)
         {
             if (betrag <= 0)
@@ -44,18 +40,16 @@ namespace BankUeberweisung
                 throw new ArgumentException("Betrag muss größer 0 sein.");
             }
 
-            // Bank-Guthaben prüfen
+            // Überweisung prüfen
             if (!_konten.ContainsKey("Bank"))
             {
                 throw new InvalidOperationException("Das Bankkonto existiert nicht.");
             }
             if (_konten["Bank"] - betrag < 0)
             {
-                // Wenn das Guthaben nicht reicht, Exception werfen
                 throw new InvalidOperationException("Das Guthaben der Bank ist zu gering, Überweisung nicht möglich!");
             }
 
-            // Bankguthaben abbuchen
             _konten["Bank"] -= betrag;
 
             // Empfänger-Konto anlegen, falls noch nicht vorhanden
@@ -64,14 +58,13 @@ namespace BankUeberweisung
                 _konten[empfaenger] = 0;
             }
 
-            // Empfänger-Guthaben erhöhen
             _konten[empfaenger] += betrag;
 
-            // Event auslösen
+            // Event
             OnTransfer?.Invoke(this, new TransferEventArgs("Bank", empfaenger, betrag));
         }
 
-        // Methode, um das Guthaben eines Kontos zu erhöhen (z.B. wenn die Bank Geld "druckt")
+        // Geld-Drucken a la Zentralbank
         public void Einzahlen(string name, int betrag)
         {
             if (!_konten.ContainsKey(name))
@@ -81,18 +74,16 @@ namespace BankUeberweisung
             _konten[name] += betrag;
         }
 
-        // Gibt das aktuelle Guthaben eines Kontos zurück
         public int GetGuthaben(string name)
         {
             if (_konten.ContainsKey(name))
             {
                 return _konten[name];
             }
-            return 0; // Keine Exception, sondern einfach 0 für nicht existentes Konto
+            return 0; // Hätte man auch mit Exception lösen können
         }
     }
 
-    // 4) Die Konsolenanwendung
     class Uebung5
     {
         static void Main(string[] args)
@@ -135,7 +126,6 @@ namespace BankUeberweisung
                     string erstesWort = teile[0];
                     string zweitesWort = teile[1];
 
-                    // Prüfe, ob das erste Wort "Guthaben" ist
                     if (erstesWort.Equals("Guthaben", StringComparison.OrdinalIgnoreCase))
                     {
                         // Guthaben abfragen
@@ -145,25 +135,21 @@ namespace BankUeberweisung
                     }
                     else
                     {
-                        // Versuche, das zweite Wort als Betrag zu interpretieren
                         if (int.TryParse(zweitesWort, out int betrag))
                         {
                             if (erstesWort.Equals("Bank", StringComparison.OrdinalIgnoreCase))
                             {
-                                // Bank-Guthaben erhöhen
                                 bank.Einzahlen("Bank", betrag);
                                 Console.WriteLine($"Die Bank hat jetzt {bank.GetGuthaben("Bank")} \u20AC Guthaben.");
                             }
                             else
                             {
-                                // Überweisung von Bank an erstesWort
                                 try
                                 {
                                     bank.Ueberweisen(erstesWort, betrag);
                                 }
                                 catch (Exception ex)
                                 {
-                                    // Fehler abfangen und ausgeben
                                     Console.WriteLine($"Fehler bei der Überweisung: {ex.Message}");
                                 }
                             }
@@ -183,10 +169,9 @@ namespace BankUeberweisung
             Console.WriteLine("Programm beendet.");
         }
 
-        // Diese Methode wird aufgerufen, sobald das Event OnTransfer ausgelöst wird
+        // wird bei Event ausgeführt
         private static void Bank_OnTransfer(object sender, TransferEventArgs e)
         {
-            // Beispiel-Ausgabe:
             Console.WriteLine($"Es werden von {e.From} {e.Amount} \u20AC an {e.To} überwiesen.");
         }
     }
