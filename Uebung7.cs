@@ -79,7 +79,7 @@ namespace ProducerConsumerDemo
 
     internal class Program
     {
-        private const int NUMBERS_TO_PRODUCE = 100;
+        private const int NUMBERS_TO_PRODUCE = 1000;
         private const int QUEUE_CAPACITY = 100; // Puffergröße
 
         private static async Task Main()
