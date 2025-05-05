@@ -14,6 +14,7 @@
     <Compile Remove="Uebung3.cs" />
     <Compile Remove="Uebung4.cs" />
     <Compile Remove="Uebung5.cs" />
+    <Compile Remove="Uebung7.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
     <None Include="Uebung2.cs" />
     <None Include="Uebung4.cs" />
     <None Include="Uebung5.cs" />
+    <None Include="Uebung7.cs" />
   </ItemGroup>
 
   <ItemGroup>
